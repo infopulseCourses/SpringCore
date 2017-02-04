@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:annotation-config/>
+
+    <bean id="airCompany" class="com.domain.AirCompany">
+        <property name="flights" >
+            <list value-type="com.domain.Flight">
+                <ref bean="flight1"/>
+                <ref bean="flight2"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="flight1" class="com.domain.Flight">
+        <property name="airPlane" ref="airbus" />
+        <property name="distance" value="1000" />
+        <property name="staff" >
+            <list value-type="com.domain.Staff">
+                <ref bean="staff1"/>
+                <ref bean="staff2"/>
+            </list>
+        </property>
+        <property name="tickets">
+            <map key-type="java.lang.String" value-type="com.domain.Ticket">
+                <entry key="Vasya" value-ref="ticket1"/>
+                <entry key="Petya" value-ref="ticket2"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="flight2" class="com.domain.Flight">
+        <property name="airPlane" ref="boeing" />
+        <property name="distance" value="1000" />
+        <property name="staff" >
+            <list value-type="com.domain.Staff">
+                <ref bean="staff3"/>
+                <ref bean="staff4"/>
+            </list>
+        </property>
+        <property name="tickets">
+            <map key-type="java.lang.String" value-type="com.domain.Ticket">
+                <entry key="Vasya" value-ref="ticket3"/>
+                <entry key="Petya" value-ref="ticket4"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="airplane" abstract="true" class="com.domain.AirPlane">
+        <property name="fuelConsumption" value="300"/>
+    </bean>
+
+    <bean id="airbus" class="com.domain.Airbus" parent="airplane">
+        <property name="modelCode" value="airbus"/>
+    </bean>
+
+    <bean id="boeing" class="com.domain.Boeing" parent="airplane">
+        <property name="modelName" value="boeing"/>
+        <property name="fuelConsumption" value="400"/>
+    </bean>
+
+    <bean id="staff1" class="com.domain.Staff">
+        <property name="salary" value="250"/>
+    </bean>
+
+    <bean id="staff2" class="com.domain.Staff">
+        <property name="salary" value="350"/>
+    </bean>
+
+    <bean id="staff3" class="com.domain.Staff">
+        <property name="salary" value="150"/>
+    </bean>
+
+    <bean id="staff4" class="com.domain.Staff">
+        <property name="salary" value="550"/>
+    </bean>
+
+    <bean id="ticket1" class="com.domain.Ticket">
+        <property name="price" value="150"/>
+    </bean>
+
+    <bean id="ticket2" class="com.domain.Ticket">
+        <property name="price" value="150"/>
+    </bean>
+
+    <bean id="ticket3" class="com.domain.Ticket">
+        <property name="price" value="150"/>
+    </bean>
+
+    <bean id="ticket4" class="com.domain.Ticket">
+        <property name="price" value="150"/>
+    </bean>
+
+</beans>
